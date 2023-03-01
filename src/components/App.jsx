@@ -1,9 +1,9 @@
 import { Component } from 'react';
-import FeadbackOptions from './FeadbackOptions';
+import FeedbackOptions from './FeedbackOptions';
 import Section from './Section';
-import Statistic from './Statistic';
+import Statistics from './Statistics';
 
-import { FEADBACK_OPTIONS } from './data/data';
+import { FEEDBACK_OPTIONS } from './data/data.js';
 
 export class App extends Component {
   state = {
@@ -12,36 +12,36 @@ export class App extends Component {
     bad: 0,
   };
 
-  handleFeadback = ({ target }) => {
-    const { feadback } = target.dataset;
-    this.setState(prevState => ({ [feadback]: prevState[feadback] + 1 }));
+  handleFeedback = ({ target }) => {
+    const { feedback } = target.dataset;
+    this.setState((prevState)=> ({ [feedback]: prevState[feedback] + 1 }));
   };
 
-  totalFeadback = () => {
+  totalFeedback = () => {
     const { good, neutral, bad } = this.state;
     return good + neutral + bad;
   };
 
   positivePercent = () => {
     const { good } = this.state;
-    const total = this.totalFeadback();
+    const total = this.totalFeedback();
     return total ? Math.round((good / total) * 100) : 0;
   };
 
   render() {
     const { good, neutral, bad } = this.state;
-    const total = this.totalFeadback();
+    const total = this.totalFeedback();
     const percent = this.positivePercent();
     return (
       <>
         <Section title="Please leave feedback">
-          <FeadbackOptions
-            options={FEADBACK_OPTIONS}
-            onLeaveFeedback={this.handleFeadback}
+          <FeedbackOptions
+            options={FEEDBACK_OPTIONS}
+            onLeaveFeedback={this.handleFeedback}
           />
         </Section>
         <Section title="Statistics">
-          <Statistic
+          <Statistics
             good={good}
             neutral={neutral}
             bad={bad}
