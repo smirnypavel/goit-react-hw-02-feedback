@@ -3,8 +3,6 @@ import FeedbackOptions from './FeedbackOptions';
 import Section from './Section';
 import Statistics from './Statistics';
 
-import { FEEDBACK_OPTIONS } from './data/data.js';
-
 export class App extends Component {
   state = {
     good: 0,
@@ -12,9 +10,8 @@ export class App extends Component {
     bad: 0,
   };
 
-  handleFeedback = ({ target }) => {
-    const { feedback } = target.dataset;
-    this.setState((prevState)=> ({ [feedback]: prevState[feedback] + 1 }));
+  handleFeedback = option => {
+    this.setState(prevState => ({ [option]: prevState[option] + 1 }));
   };
 
   totalFeedback = () => {
@@ -36,7 +33,7 @@ export class App extends Component {
       <>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={FEEDBACK_OPTIONS}
+            options={Object.keys(this.state)}
             onLeaveFeedback={this.handleFeedback}
           />
         </Section>
